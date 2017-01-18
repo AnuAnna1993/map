@@ -1,12 +1,12 @@
 var map;
  function initMap() {
-       map=new google.maps.Map(document.getElementById('map'),{
-       	center:{lat: 8.4875,lng:76.9486},
-       	zoom:13,	
-       });  
-     }
+ 	map=new google.maps.Map(document.getElementById("map"),{
+ 		center:{lat: 8.4875,lng:76.9486},
+ 		zoom:13,
+ 	});
+ }
 var markers=[];
-var location= [
+var locations= [
 	{
 		title:'Kovalam beach',
 		location:{lat:8.402074, lng: 76.978426}
@@ -25,14 +25,14 @@ var location= [
 		location:{lat: 8.5241391, lng: 76.9366376}
 	}
 ];
-var largeInfowindow=new google.maps.InfoWindow();
+var largeInfowindow= new google.maps.InfoWindow();
 
-var bound=new google.maps.LatLngBounds();
+var bound= new google.maps.LatLngBounds();
 //for initialising the markers
-for (i=0;i<=location.length;i++){
+for (i=0;i<=locations.length;i++){
 	//to get the markers from their array
-	var position = location[i].location;
-	var title = location[i].title;
+	var position = locations[i].location;
+	var title = locations[i].title;
 	
 var marker=new google.maps.Marker({
 	map:map,
@@ -48,17 +48,16 @@ var marker=new google.maps.Marker({
 bound.extend(marker.position);
 	}
 	function populateInfoWindow(marker, infowindow) {
-    // Check to make sure the infowindow is not already opened on this marker.
-    if (infowindow.marker != marker) {
-        // Clear the infowindow content to give the streetview time to load.
-        infowindow.setContent('');
-        infowindow.marker = marker;
-        // Make sure the marker property is cleared if the infowindow is closed.
-        infowindow.addListener('closeclick', function() {
-            infowindow.marker = null;
-        });
-
+	// Check to make sure the infowindow is not already opened on this marker.
+	if (infowindow.marker != marker) {
+	// Clear the infowindow content to give the streetview time to load.
+	infowindow.setContent('');
+	infowindow.marker = marker;
+	// Make sure the marker property is cleared if the infowindow is closed.
+	infowindow.addListener('closeclick', function() {
+		infowindow.marker = null;
+	});
 	map.fitBounds(bounds);
-	}
+    }
 }
     
