@@ -2,7 +2,7 @@ var map;
  function initMap() {
  	map=new google.maps.Map(document.getElementById("map"),{
  		center:{lat: 8.4875,lng:76.9486},
- 		zoom:13,
+ 		zoom:10,
  	});
  
 var markers=[];
@@ -12,14 +12,13 @@ var locations= [
 		location:{lat:8.402074, lng: 76.978426}
 	},{
 		title:'Padmanabhapuram Palace',
-		location:{lat:8.250743,lng:76.9486}
+		location:{lat:8.2507,lng:77.3267}
 	},{
 		title:'Vizhinjam Lighthouse',
-		location:{lat: 31.1545,lng:29.8462}
-
+		location:{lat:8.383072,lng:76.979742}
 	},{
-		title:'Napier Museum',
-		location:{lat:8.5241391,lng:76.9366376}
+		title:'Ponmudi',
+		location:{lat:8.7599,lng:77.1169}
 	},{
 		title:'Veli Tourist Village',
 		location:{lat: 8.5241391, lng: 76.9366376}
