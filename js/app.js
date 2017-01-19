@@ -4,7 +4,7 @@ var map;
  		center:{lat: 8.4875,lng:76.9486},
  		zoom:13,
  	});
- }
+ 
 var markers=[];
 var locations= [
 	{
@@ -29,7 +29,7 @@ var largeInfowindow= new google.maps.InfoWindow();
 
 var bound= new google.maps.LatLngBounds();
 //for initialising the markers
-for (i=0;i<=locations.length;i++){
+for (i=0;i<locations.length;i++){
 	//to get the markers from their array
 	var position = locations[i].location;
 	var title = locations[i].title;
@@ -57,7 +57,8 @@ bound.extend(marker.position);
 	infowindow.addListener('closeclick', function() {
 		infowindow.marker = null;
 	});
-	map.fitBounds(bounds);
+	map.fitBounds(bound);
     }
+}
 }
     
