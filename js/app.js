@@ -8,7 +8,7 @@ var map;
 var markers=[];
 var locations= [
 	{
-		title:'Kovalam beach',
+		title:'Kovalam Beach',
 		location:{lat:8.402074, lng: 76.978426}
 	},{
 		title:'Padmanabhapuram Palace',
@@ -17,11 +17,11 @@ var locations= [
 		title:'Vizhinjam Lighthouse',
 		location:{lat:8.383072,lng:76.979742}
 	},{
-		title:'Ponmudi',
-		location:{lat:8.7599,lng:77.1169}
+		title:'Kowdiar Palace',
+		location:{lat:8.5240,lng:76.9632}
 	},{
-		title:'Veli Tourist Village',
-		location:{lat: 8.5241391, lng: 76.9366376}
+		title:'Shankumugham Beach',
+		location:{lat: 8.4784, lng: 76.9119}
 	}
 ];
 var largeInfowindow= new google.maps.InfoWindow();
@@ -58,6 +58,30 @@ bound.extend(marker.position);
 	});
 	map.fitBounds(bound);
     }
+    //code for wikipedia ajax request.
+        var wikiURL = 'http://en.wikipedia.org/w/api.php?action=opensearch&search=' + marker.title + '&format=json&callback=wikiCallback';
+        // var wikiTimeoutRequest = setTimeout(function() {
+        // alert("failed to load wikipedia resources");
+        // }, 8000);
+        $.ajax({
+            url: wikiURL,
+            dataType: "jsonp"
+            }).done(function(response) {
+                var articleStr = response[1];
+                var URL = 'http://en.wikipedia.org/wiki/' + articleStr;
+                // Use streetview service to get the closest streetview image within
+                // 50 meters of the markers position
+               
+                infowindow.setContent('<div>' + marker.title + '</div><br><a href ="' + URL + '">' + URL + '</a><hr><div id="pano"></div>');
+                // Open the infowindow on the correct marker.
+                infowindow.open(map, marker);
+                console.log(URL);
+                // clearTimeout(wikiTimeoutRequest);
+
+                // error handling for jsonp requests with fail method.
+            }).fail(function (jqXHR, textStatus) {
+                    alert("failed to load wikipedia resources");
+                    });
 }
 }
     
