@@ -29,8 +29,9 @@ var largeInfowindow= new google.maps.InfoWindow();
 var ViewModel=function(){
 var self=this;
 self.title=ko.observableArray();
-self.location=ko.observableArray();
-}
+self.location=ko.observableArray(); 
+self.locationList=ko.observableArray(locations);
+};
 var viewModel=new ViewModel
 ko.applyBindings(viewModel);
 var bound= new google.maps.LatLngBounds();
@@ -100,5 +101,3 @@ function toggleBounce(marker) {
 };
 
 }
-
-    
