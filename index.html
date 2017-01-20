@@ -13,9 +13,9 @@
  
   <div class="responsive-menu">
     <div class="list">Explore the Unexplored Places</div>
-    <input type="search" >
-    <ul id="location-list" data-bind="foreach:locationList">
-        <li class="listview" data-bind="text: title"></li>
+    <input type="search" placeholder="Ex:Fort Kochi" data-bind="textInput: query">
+                <ul class="filterlist" data-bind="foreach: search">
+                    <li class="listview" data-bind="text: title, click: $parent.currentMarker"></li>
                 </ul>
         </div>
    

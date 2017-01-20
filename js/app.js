@@ -27,13 +27,31 @@ var locations= [
 ];
 var largeInfowindow= new google.maps.InfoWindow();
 var ViewModel=function(){
-var self=this;
-self.title=ko.observableArray();
-self.location=ko.observableArray(); 
-self.locationList=ko.observableArray(locations);
+    var self=this;
+    self.title=ko.observableArray();
+    self.locationList=ko.observableArray();
+    for(i=0;i<locations.length;i++){
+        self.locationList.push(locations[i])
+    }
+    
+    self.query=ko.observable('');
+    self.search = ko.computed(function() {
+        var userInput = self.query().toLowerCase(); // Make search case insensitive
+        return searchResult = ko.utils.arrayFilter(self.locationList(), function(item) {
+            var title = item.title.toLowerCase(); // Make search case insensitive
+            var userInputIsInTitle = title.indexOf(userInput) >= 0; // true or false
+            if (item.marker) {
+                item.marker.setVisible(userInputIsInTitle); // toggle visibility of the marker
+            }
+            return userInputIsInTitle;
+        });
+    })
+
 };
+
 var viewModel=new ViewModel
 ko.applyBindings(viewModel);
+
 var bound= new google.maps.LatLngBounds();
 //for initialising the markers
 for (i=0;i<locations.length;i++){
@@ -50,7 +68,8 @@ var marker=new google.maps.Marker({
     markers.push(marker);
     //create onclick event to open infoWindow
     marker.addListener('click',function(){
-    populateInfoWindow(this,largeInfowindow)
+    populateInfoWindow(this,largeInfowindow);
+    toggleBounce(this, marker);
 });
 bound.extend(marker.position);
     }
@@ -99,5 +118,9 @@ function toggleBounce(marker) {
     }, 1400);
 
 };
-
+google.maps.event.addDomListener(window, "resize", function() {
+        var center = map.getCenter();
+        google.maps.event.trigger(map, "resize");
+        map.setCenter(center);
+    });
 }
