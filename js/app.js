@@ -39,11 +39,7 @@ var ViewModel=function(){
     self.marker=ko.observableArray();
     
     self.currentLocation=ko.observable(self.locationList()[0]);
-    self.setLocation=function(clickedLocation)
-    {
-        self.currentLocation(clickedLocation);
-        google.maps.event.trigger(clickedLocation.marker,'click');
-    };
+    
     
     self.query=ko.observable('');
     self.search = ko.computed(function() {
@@ -76,15 +72,16 @@ var marker=new google.maps.Marker({
     position:position,
     animation:google.maps.Animation.DROP,
 });
-locations.forEach(function(index,i){
-    index.markers=markers[i];
-})
+
     markers.push(marker);
     //create onclick event to open infoWindow
     marker.addListener('click',function(){
     populateInfoWindow(this,largeInfowindow);
     toggleBounce(this, marker);
 });
+    locations.forEach(function(index,i){
+    index.markers=markers[i];
+})
 bound.extend(marker.position);
     }
 
