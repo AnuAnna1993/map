@@ -10,29 +10,40 @@ var markers=[];
 var locations= [
     {
         title:'Kovalam Beach',
-        location:{lat:8.402074, lng: 76.978426}
+        location:{lat:8.402074, lng: 76.978426},
+        markers:''
     },{
         title:'Padmanabhapuram Palace',
-        location:{lat:8.2507,lng:77.3267}
+        location:{lat:8.2507,lng:77.3267},
+        markers:''
     },{
         title:'Vizhinjam Lighthouse',
-        location:{lat:8.383072,lng:76.979742}
+        location:{lat:8.383072,lng:76.979742},
+        markers:''
     },{
         title:'Kowdiar Palace',
-        location:{lat:8.5240,lng:76.9632}
+        location:{lat:8.5240,lng:76.9632},
+        markers:''
     },{
         title:'Shankumugham Beach',
-        location:{lat: 8.4784, lng: 76.9119}
+        location:{lat: 8.4784, lng: 76.9119},
+        markers:''
     }
-];
+]; 
+
 var largeInfowindow= new google.maps.InfoWindow();
 var ViewModel=function(){
     var self=this;
     self.title=ko.observableArray();
-    self.locationList=ko.observableArray();
-    for(i=0;i<locations.length;i++){
-        self.locationList.push(locations[i])
-    }
+    self.locationList=ko.observableArray(locations);
+    self.marker=ko.observableArray();
+    
+    self.currentLocation=ko.observable(self.locationList()[0]);
+    self.setLocation=function(clickedLocation)
+    {
+        self.currentLocation(clickedLocation);
+        google.maps.event.trigger(clickedLocation.marker,'click');
+    };
     
     self.query=ko.observable('');
     self.search = ko.computed(function() {
@@ -40,8 +51,8 @@ var ViewModel=function(){
         return searchResult = ko.utils.arrayFilter(self.locationList(), function(item) {
             var title = item.title.toLowerCase(); // Make search case insensitive
             var userInputIsInTitle = title.indexOf(userInput) >= 0; // true or false
-            if (item.marker) {
-                item.marker.setVisible(userInputIsInTitle); // toggle visibility of the marker
+            if (item.markers) {
+                item.markers.setVisible(userInputIsInTitle); // toggle visibility of the marker
             }
             return userInputIsInTitle;
         });
@@ -65,6 +76,9 @@ var marker=new google.maps.Marker({
     position:position,
     animation:google.maps.Animation.DROP,
 });
+locations.forEach(function(index,i){
+    index.markers=markers[i];
+})
     markers.push(marker);
     //create onclick event to open infoWindow
     marker.addListener('click',function(){
@@ -73,6 +87,8 @@ var marker=new google.maps.Marker({
 });
 bound.extend(marker.position);
     }
+
+
     function populateInfoWindow(marker, infowindow) {
     // Check to make sure the infowindow is not already opened on this marker.
     if (infowindow.marker != marker) {

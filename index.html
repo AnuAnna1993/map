@@ -13,11 +13,11 @@
  
   <div class="responsive-menu">
     <div class="list">Explore the Unexplored Places</div>
-    <input type="search" placeholder="Ex:Fort Kochi" data-bind="textInput: query">
-                <ul class="filterlist" data-bind="foreach: search">
-                    <li class="listview" data-bind="text: title, click: $parent.currentMarker"></li>
-                </ul>
-        </div>
+    <input type="search" data-bind="textInput: query">
+    <ul class="filterlist" data-bind="foreach: search">
+     <a> <li class="listview" data-bind="text: title, click: $parent.currentMarker"></li></a>
+    </ul>
+  </div>
    
    <div id="map"></div>
     <script src="js/jquery.min.js"></script>
