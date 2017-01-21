@@ -12,9 +12,9 @@
  <h1>Welcome to Trivandrum</h1>
  
   <div>
-    <div class="list">Explore the Unexplored </div>
-    <input type="search" data-bind="textInput: query">
-    <ul class="filter" data-bind="foreach: search">
+    <div class="view">Explore the Unexplored </div>
+    <input  class="search" type="search" data-bind="textInput: query">
+    <ul data-bind="foreach: search">
      <a> <li class="listview" data-bind="text: title, click: $parent.currentMarker"></li></a>
     </ul>
   </div>
