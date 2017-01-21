@@ -11,10 +11,10 @@
  <body>
  <h1>Welcome to Trivandrum</h1>
  
-  <div class="responsive-menu">
-    <div class="list">Explore the Unexplored Places</div>
+  <div>
+    <div class="list">Explore the Unexplored </div>
     <input type="search" data-bind="textInput: query">
-    <ul class="filterlist" data-bind="foreach: search">
+    <ul class="filter" data-bind="foreach: search">
      <a> <li class="listview" data-bind="text: title, click: $parent.currentMarker"></li></a>
     </ul>
   </div>
