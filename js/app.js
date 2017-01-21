@@ -37,7 +37,12 @@ var ViewModel=function(){
     self.title=ko.observableArray();
     self.locationList=ko.observableArray(locations);
     self.marker=ko.observableArray();
-    
+    self.currentMarker = function(place) {
+        // console.log(place.title);
+        toggleBounce(place.markers);
+        // trigger the click event of the marker
+        google.maps.event.trigger(place.markers, 'click');
+    };
     self.currentLocation=ko.observable(self.locationList()[0]);
     
     
