@@ -1,11 +1,11 @@
- 
-var map;
+ var map;
 function initMap() {
     map=new google.maps.Map(document.getElementById("map"),{
         center:{lat: 8.4875,lng:76.9486},
         zoom:10,
+
 });
- 
+ var largeInfowindow= new google.maps.InfoWindow();
 var markers=[];
 var locations= [
     {
@@ -26,7 +26,7 @@ var locations= [
     }
 ]; 
 
-var largeInfowindow= new google.maps.InfoWindow();
+
 var ViewModel=function(){
     var self=this;
     self.title=ko.observableArray();
@@ -41,7 +41,7 @@ var ViewModel=function(){
     self.currentLocation=ko.observable(self.locationList()[0]);
     
     
-    self.query=ko.observable("");
+    self.query=ko.observable('');
     self.search = ko.computed(function() {
         var userInput = self.query().toLowerCase(); // Make search case insensitive
         return searchResult = ko.utils.arrayFilter(self.locationList(), function(item) {
@@ -53,7 +53,6 @@ var ViewModel=function(){
             return userInputIsInTitle;
         });
     })
-
 };
 
 var viewModel=new ViewModel
@@ -113,7 +112,7 @@ bound.extend(marker.position);
                 infowindow.open(map, marker);
                 console.log(URL);
                 // error handling for jsonp requests with fail method.
-            }).fail(function (jqXHR, textStatus) {
+            }).fail(function (jquery, textStatus) {
                     alert("failed to load wikipedia resources");
                     });
 }
@@ -130,4 +129,8 @@ google.maps.event.addDomListener(window, "resize", function() {
         google.maps.event.trigger(map, "resize");
         map.setCenter(center);
     });
+
+}
+var mapError=function(){
+	alert('failed to load map');
 }
