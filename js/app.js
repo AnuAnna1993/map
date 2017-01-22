@@ -104,15 +104,11 @@ bound.extend(marker.position);
             }).done(function(response) {
                 var articleStr = response[1];
                 var URL = "http://en.wikipedia.org/wiki/" + articleStr;
-                // Use streetview service to get the closest streetview image within
-                // 50 meters of the markers position
-               
                 infowindow.setContent('<div>' + marker.title + '</div><br><a href ="' + URL + '">' + URL + '</a><hr><div id="pano"></div>');
                 // Open the infowindow on the correct marker.
                 infowindow.open(map, marker);
                 console.log(URL);
-                // error handling for jsonp requests with fail method.
-            }).fail(function (jquery, textStatus) {
+            }).fail(function (jqXHR, textStatus) {
                     alert("failed to load wikipedia resources");
                     });
 }
